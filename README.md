@@ -49,14 +49,21 @@ system keychain.
 nika-planet-downloader login
 ```
 
-**2. Start the download.** Paste the export code from Nika Planet when asked.
+**2. Start the download.** Point it at a folder with a `nikafs://` address —
+your project id plus the path you copied from the file browser.
 
 ```bash
-nika-planet-downloader export --output /Volumes/ClientDrive
+nika-planet-downloader export nikafs://<project-id>/data/stac/cogs --output /Volumes/ClientDrive
 ```
 
-The code is typed at a prompt rather than passed as an argument, so it never
-lands in your shell history.
+`--output` is the **parent** directory: the folder structure is recreated inside
+it, so the example above lands in `/Volumes/ClientDrive/stac/cogs`.
+
+Pass several addresses to fetch them in one run. Addresses do not expire — keep
+one in a script and it keeps working for as long as you have access.
+
+Run `export` with no address to pick from whatever the web app has queued for
+you.
 
 That's it. Progress appears in the terminal, and also on the Nika Planet page
 you started from.
@@ -91,8 +98,8 @@ nika-planet-downloader export --output /Volumes/ClientDrive
 
 Re-running also skips files already downloaded, so it is safe to repeat.
 
-Your export code stays valid for **72 hours**. After that, ask for a new one
-from Nika Planet.
+An export stays available for **72 hours**. After that, create a new one from
+Nika Planet.
 
 ## Every file is checked
 
@@ -131,7 +138,7 @@ usually your connection or the drive rather than the tool.
 The tool signs in as *you*. It can only download what your own Nika Planet
 account is already allowed to download, and access is re-checked on every
 request — so if your workspace permissions change, an in-progress download stops
-too. An export code on its own grants nothing without your sign-in.
+too, and the export disappears from your list.
 
 ## Support
 
