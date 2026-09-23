@@ -81,10 +81,47 @@ log ""
 log "Installed $BIN_NAME $version to $INSTALL_DIR"
 
 case ":$PATH:" in
-    *":$INSTALL_DIR:"*) log "Run: $BIN_NAME --help" ;;
-    *)
-        log ""
-        log "$INSTALL_DIR is not on your PATH. Add it:"
-        log "  echo 'export PATH=\"$INSTALL_DIR:\$PATH\"' >> ~/.zshrc && exec zsh"
+    *":$INSTALL_DIR:"*)
+        log "Next: $BIN_NAME login"
+        exit 0
         ;;
 esac
+
+# ~/.local/bin is on PATH out of the box on most Linux desktops but not on
+# macOS, so printing a line to paste meant the install "succeeded" and the very
+# next command was `command not found`. Append to the login shell's profile
+# once instead, the way rustup and uv do. NIKA_NO_MODIFY_PATH=1 opts out.
+path_line="export PATH=\"$INSTALL_DIR:\$PATH\""
+profile=""
+case "${SHELL##*/}" in
+    zsh) profile="${ZDOTDIR:-$HOME}/.zshrc" ;;
+    bash)
+        # macOS Terminal starts bash as a login shell, which reads
+        # .bash_profile and never .bashrc.
+        if [ "$os" = Darwin ]; then
+            profile="$HOME/.bash_profile"
+        else
+            profile="$HOME/.bashrc"
+        fi
+        ;;
+    fish)
+        profile="$HOME/.config/fish/config.fish"
+        path_line="fish_add_path \"$INSTALL_DIR\""
+        ;;
+esac
+
+log ""
+if [ -n "${NIKA_NO_MODIFY_PATH:-}" ] || [ -z "$profile" ]; then
+    log "$INSTALL_DIR is not on your PATH. Add this to your shell profile:"
+    log "  $path_line"
+else
+    if ! grep -qsF "$path_line" "$profile"; then
+        mkdir -p "$(dirname "$profile")"
+        printf '\n# Added by the Nika Planet Downloader installer\n%s\n' "$path_line" >>"$profile"
+        log "Added $INSTALL_DIR to your PATH in $profile"
+    fi
+    # A piped installer runs in a child process, so it cannot change the PATH
+    # of the terminal that launched it — only new ones pick the profile up.
+    log "Open a new terminal window, then run: $BIN_NAME login"
+fi
+log "Or use it in this window right away: $INSTALL_DIR/$BIN_NAME login"
