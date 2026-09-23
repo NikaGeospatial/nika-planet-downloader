@@ -35,6 +35,16 @@ case "$os" in
             x86_64) asset_os="linux-x86_64" ;;
             *) die "unsupported Linux architecture: $arch" ;;
         esac
+
+        # The Linux build links glibc. On musl (Alpine and friends) it
+        # installed cleanly and then would not start — the glibc loader it asks
+        # for does not exist there, and the shell reports that as a baffling
+        # "not found" for a file that is plainly present.
+        for loader in /lib/ld-musl-*.so.1; do
+            if [ -e "$loader" ]; then
+                die "this Linux uses musl libc (e.g. Alpine); only glibc builds are published"
+            fi
+        done
         ;;
     *) die "unsupported platform: $os (on Windows, download the .exe from the releases page)" ;;
 esac
