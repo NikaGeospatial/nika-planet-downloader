@@ -18,13 +18,24 @@ if the connection drops.
 
 ## Install
 
-### macOS and Linux
+### macOS (Homebrew)
+
+```bash
+brew install nikageospatial/nika-planet-downloader/nika-planet-downloader
+```
+
+Ready to use as soon as it finishes. `brew upgrade` picks up new releases.
+
+### macOS and Linux (install script)
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/NikaGeospatial/nika-planet-downloader/main/install.sh | sh
 ```
 
-Installs to `~/.local/bin`. Set `NIKA_INSTALL_DIR` to choose somewhere else.
+Installs to `~/.local/bin` and adds it to your shell profile, so **open a new
+terminal window** before running the downloader (or call it by the full path
+the installer prints). Set `NIKA_INSTALL_DIR` to install somewhere else, or
+`NIKA_NO_MODIFY_PATH=1` to leave your profile alone.
 
 ### Windows
 
