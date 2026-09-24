@@ -153,7 +153,7 @@ too, and the export disappears from your list.
 
 ## Support
 
-Full guide: <https://docs.nikaplanet.com/guides/large-folder-downloads>
+Full guide: <https://docs.nikaplanet.com/guides/manage-file-lake-per-workspace/large-folder-downloads>
 
 Problems: contact your Nika Planet workspace administrator, or open an issue on
 this repository.
