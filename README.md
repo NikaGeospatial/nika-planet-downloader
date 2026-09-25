@@ -25,6 +25,9 @@ brew install nikageospatial/nika-planet-downloader/nika-planet-downloader
 ```
 
 Ready to use as soon as it finishes. `brew upgrade` picks up new releases.
+If you already installed the downloader, run `brew upgrade nika-planet-downloader`
+to get version 0.1.3, which shows control characters in server-provided names
+as visible text instead of passing them to your terminal.
 
 ### macOS and Linux (install script)
 
@@ -36,6 +39,7 @@ Installs to `~/.local/bin` and adds it to your shell profile, so **open a new
 terminal window** before running the downloader (or call it by the full path
 the installer prints). Set `NIKA_INSTALL_DIR` to install somewhere else, or
 `NIKA_NO_MODIFY_PATH=1` to leave your profile alone.
+Re-run the installer to update an existing copy to version 0.1.3.
 
 ### Windows
 
