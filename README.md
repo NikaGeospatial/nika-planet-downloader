@@ -44,8 +44,31 @@ Re-run the installer to update an existing copy to version 0.1.4.
 
 ### Windows
 
-Download the `.exe` from [Releases](https://github.com/NikaGeospatial/nika-planet-downloader/releases)
-and put it somewhere on your `PATH`.
+Download [`install.cmd`](https://github.com/NikaGeospatial/nika-planet-downloader/releases/latest/download/install.cmd)
+and double-click it. It is not code-signed, so Windows may ask you to confirm
+before it runs. When it finishes, open a new terminal window to use the
+downloader.
+
+Or, in PowerShell:
+
+```powershell
+irm https://raw.githubusercontent.com/NikaGeospatial/nika-planet-downloader/main/install.ps1 | iex
+```
+
+This one makes the downloader available in the window you ran it in straight
+away. Set `$env:NIKA_INSTALL_DIR` first to install somewhere else, or
+`$env:NIKA_NO_MODIFY_PATH = 1` to leave your `PATH` alone.
+
+Either way it installs to `%LOCALAPPDATA%\Programs\nika-planet-downloader` and
+adds that to your user `PATH`, with no administrator rights needed. Run it again
+to update an existing copy.
+
+`install.cmd` is the same script as `install.ps1` with a few lines in front that
+start PowerShell, so you can open it in Notepad to read exactly what it does.
+Every release also carries `install.ps1` on its own. Run that one with
+`powershell -ExecutionPolicy Bypass -File .\install.ps1`; a standard Windows 11
+setup refuses to run script files any other way, including right-click →
+*Run with PowerShell*.
 
 ### Manual download
 
@@ -54,6 +77,10 @@ Every release ships a `SHA256SUMS.txt`. To check what you downloaded:
 ```bash
 shasum -a 256 -c SHA256SUMS.txt        # macOS
 sha256sum -c SHA256SUMS.txt            # Linux
+```
+
+```powershell
+Get-FileHash .\nika-planet-downloader-*-windows-x86_64.exe   # Windows: compare with SHA256SUMS.txt
 ```
 
 ## Getting your files
