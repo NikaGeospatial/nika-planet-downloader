@@ -46,7 +46,7 @@ case "$os" in
             fi
         done
         ;;
-    *) die "unsupported platform: $os (on Windows, download the .exe from the releases page)" ;;
+    *) die "unsupported platform: $os (on Windows, run in PowerShell: irm https://raw.githubusercontent.com/$REPO/main/install.ps1 | iex)" ;;
 esac
 
 log "Finding the latest release…"
