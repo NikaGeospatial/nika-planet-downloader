@@ -26,9 +26,9 @@ brew install nikageospatial/nika-planet-downloader/nika-planet-downloader
 
 Ready to use as soon as it finishes. `brew upgrade` picks up new releases.
 If you already installed the downloader, run `brew upgrade nika-planet-downloader`
-to get version 0.1.4. `whoami` now shows the signed-in email or username even
-when the session was cached. It also includes the 0.1.3 fix that shows control
-characters in server-provided names as visible text.
+to get version 0.1.5. It adds Windows support: sign-in now completes on
+Windows, and a file whose name Windows cannot store (such as `img:1.tif` or
+`NUL.txt`) is listed as failed instead of being saved under another name.
 
 ### macOS and Linux (install script)
 
@@ -40,7 +40,7 @@ Installs to `~/.local/bin` and adds it to your shell profile, so **open a new
 terminal window** before running the downloader (or call it by the full path
 the installer prints). Set `NIKA_INSTALL_DIR` to install somewhere else, or
 `NIKA_NO_MODIFY_PATH=1` to leave your profile alone.
-Re-run the installer to update an existing copy to version 0.1.4.
+Re-run the installer to update an existing copy to version 0.1.5.
 
 ### Windows
 
